@@ -1,0 +1,240 @@
+{% extends 'merchant/base.html' %}
+{% load staticfiles %}
+{% block extracss %}
+	<style type="text/css">
+	#map-canvas {	
+width: 100%;
+height: 400px;
+      }
+      #geo-map {	
+width: 100%;
+height: 400px;
+      }
+    </style>
+{% endblock %}
+{% block content %}
+<!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Booking Details : #{{ booking_id }} 
+            {% if booking.status == 'Complete' %}
+            	<span class="label label-success">{{ booking.status }}</span>
+            {% elif booking.status == 'Cancelled' %}
+            	<span class="label label-danger">{{ booking.status }}</span>
+            {% elif booking.status == 'Ready to Pick' %}
+            	<span class="label label-warning">{{ booking.status }}</span>
+            {% elif booking.status == 'Shipped' %}
+            	<span class="label label-info">{{ booking.status }}</span>
+            {% elif booking.status == 'Confirmed' %}
+            	<span class="label label-primary">{{ booking.status }}</span>
+            {% elif booking.status == 'Pending' %}
+				<span class="label label-default">{{ booking.status }}</span>
+            {% endif %}
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{% url 'merchant_dashboard' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="{% url 'merchant_booking_list' %}"><i class="fa fa-list" aria-hidden="true"></i> Bookings</a></li>
+            <li><a href="#"><i class="fa fa-circle" aria-hidden="true"></i>{{ booking_id }}</a></li>
+          </ol>
+          
+        </section>
+        <section class="content">
+        	<div class="row">	
+        		<div class="col-md-4 col-sm-4 col-xs-12">
+        			<div class="box box-default">
+        				<div class="box-header with-border">
+        					<h3 class="box-title">Customer &amp; Drop Details</h3><br/>
+        					<a href="tel:{{ booking.customer.phone_number }}" class="btn btn-sm bg-maroon">Call Customer</a>
+        				</div>
+        				<div class="box-body">
+        					<ul class="list-group list-group-unbordered">
+        						<li class="list-group-item">
+        							<b>Customer Name: </b> {{ booking.customer.get_full_name }} 
+        						</li>
+        						<li class="list-group-item">
+        							<b>Customer Phone: </b> {{ booking.customer.phone_number }} / {{ booking.customer.alt_phone_number }}
+        						</li>
+        						
+        					</ul>
+        				</div>
+        			</div>
+        		</div>
+        		<div class="col-md-4 col-sm-4 col-xs-12">
+        			<div class="box box-default">
+        				<div class="box-header with-border">
+        					<h3 class="box-title">Rider Details</h3><br/>
+					        <a href="tel:{{ booking.rider.phone_number }}" class="btn btn-sm bg-navy">Call Rider</a>
+        				</div>
+        				<div class="box-body">
+        					<ul class="list-group list-group-unbordered">
+        						<li class="list-group-item">
+        							<b>Rider Name: </b> {{ booking.rider.get_full_name }}
+        						</li>
+        						<li class="list-group-item">
+        							<b>Rider Phone: </b> {{ booking.rider.phone_number }} / {{ booking.rider.alt_phone_number }}
+        						</li>
+        						<li class="list-group-item">
+        							
+        						</li>
+        						
+        					</ul>
+        				</div>
+        			</div>
+        		</div><!-- .col -->
+        		<div class="col-md-4 col-sm-4 col-xs-12">
+        			<div class="box box-default">
+        				<div class="box-header with-border">
+        					<h3 class="box-title">Totals</h3><br/>
+        				</div>
+        				<div class="box-body">
+        					<ul class="list-group list-group-unbordered">
+        						{% if booking.status == "Complete" %}
+		        					<li class="list-group-item">
+		        						<b> Sub Total:</b> &#8377; {{ booking.sub_total }}
+			        				</li>
+			        				<li class="list-group-item">
+		        						<b> Discount Total:</b> &#8377; {{ booking.discount_total }}
+			        				</li>
+			        				<li class="list-group-item">
+			        					<b> Final Total:</b> {{ booking.final_total }} 
+			        				</li>
+		        				{% else %}
+		        					<li class="list-group-item">
+		        						<b> Sub Total:</b> &#8377; {{ booking.sub_total }}
+			        				</li>
+			        				<li class="list-group-item">
+		        						<b> Discount Total:</b> &#8377; {{ booking.discount_total }}
+			        				</li>
+			        				<li class="list-group-item">
+			        					<b> Apx. Total:</b> &#8377; {{ booking.approx_total }} 
+			        				</li>
+		        				{% endif %}	
+        						
+        					</ul>
+        				</div>
+        			</div>
+        		</div><!-- ./col -->
+        	</div><!-- ./row -->
+        	<div class="row">
+        		<div class="col-md-12 col-sm-12 col-xs-12">
+        			<div class="box box-default">
+        				<div class="box-header">
+        					<h3 class="box-title">Delivery Details</h3>
+
+        				</div>
+        				<div class="box-body">
+        					<div class="row">
+        						<div class="col-md-4">
+        							<ul class="list-group list-group-unbordered">
+        								<li class="list-group-item">
+		        							<b>Pick-up Address: </b> {{ booking.merchant.address }}
+		        						</li>
+		        						<li class="list-group-item">
+		        							<b>Pick-up Date &amp; Time: </b> {{ booking.pickup_date }}
+		        						</li>
+		        						<li class="list-group-item">
+		        							<b>Drop Address: </b> {{ booking.customer.address }}
+		        						</li>
+		        						<li class="list-group-item">
+		        							<b>Drop Date &amp; Time: </b> {{ booking.drop_date }}
+		        						</li>
+        								<li class="list-group-item">
+		        							<b>Delivery Type: </b> {{ booking.delivery_type }}
+		        						</li>
+		        						<li class="list-group-item">
+		        							<b>Instructions: </b> {{ booking.instructions }}
+		        						</li>
+        							</ul>
+        						</div>
+        						<div class="col-md-8">
+        							<div id="map-canvas"></div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+
+        		</div><!-- ./col -->
+        	</div><!-- ./row -->
+        </section><!-- /.content --> 
+{% endblock %}
+{% block extrajs %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRcKLBQYizfeHi8fc1GzihE5TK4KTOYEY"></script>
+<script type="text/javascript">
+	function initMap() {
+    var pointA = "{{ booking.origin_locality }}",
+        pointB = "{{ booking.destination_locality }}",
+        myOptions = {
+            zoom: 7,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas')),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        });
+        
+        
+
+    // get route from A to B
+    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+
+}
+function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+    directionsService.route({
+        origin: pointA,
+        destination: pointB,
+        travelMode: google.maps.TravelMode.DRIVING
+    }, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+
+initMap();
+</script> 
+<script type="text/javascript">
+/*    // Initialize the Google Maps API v3
+function initMap() {
+        map = new google.maps.Map(document.getElementById('geo-map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+      }
+
+var marker = null;
+
+function autoUpdate() {
+  navigator.geolocation.getCurrentPosition(function(position) {  
+    var newPoint = new google.maps.LatLng(position.coords.latitude, 
+                                          position.coords.longitude);
+
+    if (marker) {
+      // Marker already created - Move it
+      marker.setPosition(newPoint);
+    }
+    else {
+      // Marker does not exist - Create it
+      marker = new google.maps.Marker({
+        position: newPoint,
+        map: map
+      });
+    }
+
+    // Center the map on the new position
+    map.setCenter(newPoint);
+  }); 
+
+  // Call the autoUpdate() function every 5 seconds
+  setTimeout(autoUpdate, 5000);
+}
+
+autoUpdate();*/
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRcKLBQYizfeHi8fc1GzihE5TK4KTOYEY&callback=initMap">
+    </script>
+{% endblock %}

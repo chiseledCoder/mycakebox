@@ -1,0 +1,514 @@
+{% extends 'superadmin/base.html' %}
+{% load staticfiles %}
+{% block content %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Dashboard
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+          </ol>
+          
+        </section>
+        <section class="content">
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-purple">
+                <div class="inner">
+                  <h3>{{ total_bookings_count }}</h3>
+                  <p>Total Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-plus-square" aria-hidden="true"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-maroon">
+                <div class="inner">
+                  <h3>{{ upcoming_bookings_count }}</h3>
+                  <p>Upcoming Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-orange">
+                <div class="inner">
+                  <h3>{{ complete_bookings_count }}</h3>
+                  <p>Happy Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-smile-o" aria-hidden="true"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-olive">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Wallet</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-inr" aria-hidden="true"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+          <!-- Main row -->   
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                  <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                  <h3 class="box-title">Quick Book</h3>
+                <div class="box-btn-tools pull-right">
+                <button class="btn btn-box-tool" type="button" data-widget="collapse">
+                  <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+                  
+                </div>
+                </div><!-- ./ box-header -->
+                  <form id="merchantBookDeliveryForm" role="form" action="{% url 'book_delivery' %}" method="POST">
+                  {% csrf_token %}
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Cost of Cake&nbsp;*</label>
+                            <input type="hidden" id="bookingID" name="booking_id">
+                            <input type="text" name="cost_of_cake" class="form-control" required="required">
+
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Weight of Cake</label>
+                            <select class="form-control" name="weight_of_cake">
+                              <option value="0.5 Kg ">0.5 Kg</option>
+                              <option value="1 Kg ">1 Kg</option>
+                              <option value="1.5 Kg ">1.5 Kg</option>
+                              <option value="2 Kg or more">2 Kg or more</option>
+                            </select>
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                      </div><!-- ./row -->
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                          <a href="#" data-target="#selectCustomerModal" data-toggle="modal" class="btn btn-froly btn-sm">Select Exisiting Customer</a>
+                        </div>
+                      </div><!-- ./row -->
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">  
+                            <label class="control-label">Pick-up Date&nbsp;*</label>
+                            <input id="pickupDateTimeInput" type="name" name="pickup_date" class="form-control" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col --> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">  
+                            <label class="control-label">Drop Date&nbsp;*</label>
+                            <input id="dropDateTimeInput" type="name" name="drop_date" class="form-control" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                      </div><!-- ./row -->
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">  
+                            <label class="control-label">Customer's First Name&nbsp;*</label>
+                            <input id="customerFirstNameInput" type="name" name="customer_first_name" class="form-control" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">  
+                            <label class="control-label">Customer's Last Name&nbsp;*</label>
+                            <input id="customerLastNameInput" type="name" name="customer_last_name" class="form-control" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                      </div><!-- ./row -->
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Customer's Phone&nbsp;*</label>
+                            <input id="customerPhoneInput" type="text" name="customer_phone" class="form-control" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Customer's Alt Phone</label>
+                             <input type="text" name="customer_alt_phone" class="form-control">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                      </div><!-- .row -->                      
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Customer's Address&nbsp;*</label>
+                            <input id="customerAddressInput" type="address" id="customer_address" class="form-control" name="customer_address" required="required">
+                          </div><!-- ./form-group -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Locality&nbsp;*</label>
+                             <input id="customerLocalityInput" type="text" class="form-control" placeholder="Enter your address" name="customer_locality" required="required">
+                          </div><!-- ./form-group -->
+
+                        </div><!-- ./col -->
+                      </div><!-- .row -->   
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label">Instructions</label>
+                            <textarea rows="2" class="form-control" name="instruction"></textarea>
+                          </div>
+                        </div><!-- ./col -->
+                      </div><!-- row -->
+                    </div><!-- ./box-body -->
+
+                  
+                  <div class="box-footer">
+                    <!-- <a href="#" class="btn btn-danger pull-right" id="getDeliveryDetails" data-toggle="modal" data-target="#deliveryBookingConfirmation">Book</a>       -->  
+                    <input type="submit" class="btn btn-cakemporos pull-right" value="Book Now">
+                  </div><!-- .box-footer -->
+                </form>
+              </div><!-- ./box -->
+
+            </div><!-- ./col -->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                  <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                  <h3 class="box-title">Upcoming Bookings</h3>
+                <div class="box-btn-tools pull-right">
+                <button class="btn btn-box-tool" type="button" data-widget="collapse">
+                  <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+                  
+                </div>
+                </div><!-- ./ box-header -->
+                  <div class="box-body">  
+                  {% if upcoming_bookings %}
+                    <ul class="list-group list-group-unbordered">
+                      {% for item in upcoming_bookings %}
+                          <li class="list-group-item">
+                            <div class="row text-center">
+                              <div class="col-md-3">
+                                <b>Booking ID</b><br/>
+                                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                                <br>
+                                <p class="text-warning">{{ item.status }}</p>
+                              </div>
+                              <div class="col-md-3">
+                                <b>Customer</b><br/>
+                                <a href="#">{{ item.customer.get_full_name }}</a>
+                              </div>
+                              <div class="col-md-3">
+                                <b>Pick Date &amp; Time</b><br/>
+                                <a href="#">{{ item.pickup_date }} | {{ item.pickup_time }}</a>
+                              </div>
+                              <div class="col-md-3">
+                                <b>Rider</b><br/>
+                                <a href="#">{{ item.rider.get_full_name }}</a>
+                              </div>
+
+                            </div>
+                          </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <h4 class="text-center">No Upcoming Bookings</h4>
+                  {% endif %}
+                                                    
+                  </div>
+                </div>
+            </div>
+          </div><!-- ./row -->
+        </section><!-- /.content -->  
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+            $(function () {
+                var d1 = new Date ();
+                var d2 = new Date ( d1 );
+                d3 = d2.setHours ( d1.getHours() + 3 );
+                $('#pickupDateTimeInput').datetimepicker({
+                    format: "DD-MM-YYYY HH:mm",
+                    icons: {
+                      time: "fa fa-clock-o",
+                      date: "fa fa-calendar",
+                      up: "fa fa-arrow-up",
+                      down: "fa fa-arrow-down",
+                      previous: "fa fa-arrow-left",
+                      next: "fa fa-arrow-right",
+                      close: "fa fa-times",
+                      today: "fa fa-calendar-check-o"
+                    },
+                    dayViewHeaderFormat: "DD MMMM YYYY",
+                    minDate: d3,
+                    showClose: true,
+                    stepping: 30,
+                    useCurrent: false,
+                    enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+                    showTodayButton: true,
+
+                });
+                $("#pickupDateTimeInput").on("dp.change", function (e) {
+                  $('#dropDateTimeInput').datetimepicker({
+                    format: "DD-MM-YYYY HH:mm",
+                    icons: {
+                      time: "fa fa-clock-o",
+                      date: "fa fa-calendar",
+                      up: "fa fa-arrow-up",
+                      down: "fa fa-arrow-down",
+                      previous: "fa fa-arrow-left",
+                      next: "fa fa-arrow-right",
+                      close: "fa fa-times",
+                      today: "fa fa-calendar-check-o"
+                    },
+                    showClose: true,
+                    showTodayButton: true,
+                  });
+                  $('#dropDateTimeInput').data("DateTimePicker").minDate(e.date);
+                });
+            });
+        </script>
+<script type="text/javascript">
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+      function initAutocomplete() {
+        var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(18.897727, 72.810469),
+        new google.maps.LatLng(19.278625, 72.980071));
+        var options = {
+          types: ['geocode'],
+          componentRestrictions: {country: 'in'},
+          strictBounds: true,
+        };
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById('customerLocalityInput')), options);
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', onChangeTest);
+      };
+
+      function onChangeTest(textbox){
+          var place = autocomplete.getPlace();
+          for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+              var val = place.address_components[i][componentForm[addressType]];
+            }
+        }
+      }
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      };
+      $(document).ready(function(){
+        $('#selectCustomerBtn').on("click", function(e){
+          cust_id = $('input[name=selectCustomerRadio]:checked').val();
+          $.ajax({
+            url:'/customer/get_data/'+cust_id,
+            success: function(data){
+              var cust_data = jQuery.parseJSON(data)
+              console.log(cust_data);
+              $('#customerFirstNameInput').val(cust_data['customer_first_name']);
+              $('#customerLastNameInput').val(cust_data['customer_last_name']);
+              $('#customerPhoneInput').val(cust_data['customer_phone']);
+              $('#customerAddressInput').val(cust_data['customer_address']);
+              $('#customerLocalityInput').val(cust_data['customer_locality']);
+              $('#custmerId').val(cust_data['custmer_id'])
+              $('#selectCustomerModal').modal('toggle');
+            }
+          })
+        });
+        $('#merchantBookDeliveryForm').on("submit", function(e) { // catch the form's submit event
+        e.preventDefault();
+        $.ajax({ // create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function(data) { // on success..
+              var distance_data = jQuery.parseJSON(data);
+              console.log(distance_data); 
+              $('#bookingIDInput').val(distance_data['booking_id']);
+              $('#costOfCake').html(distance_data['cake_cost']);
+              $('#weightOfCake').html(distance_data['cake_weight']);
+              $('#customerName').html(distance_data['customer']);
+              $('#customerPhone').html(distance_data['customer_phone']);
+              $('#originAddress').html(distance_data['origin']);
+              $('#destinationAddress').html(distance_data['destination']);
+              $('#finalDistance').html(distance_data['distance']);
+              $('#finalDuration').html(distance_data['duration']);
+              $('#pickupDateTime').html(distance_data['pickupDateTime']);
+              $('#dropDateTime').html(distance_data['dropDateTime']);
+              $('#instruction').html(distance_data['instruction']);
+              if (distance_data['delivery_type'] == "Hyperlocal") {
+                $('#normalDeliveryType').css('display', 'block');
+                $('#approxCostNormal').html(distance_data['approx_total_normal']);
+                $('#approxCostNormal').css('display', 'block');
+                $('#rateNormal').css('display', 'block');
+                $('#rateNormal').html(distance_data['rate_normal']);
+                $('#rateJet').css('display', 'none');
+                $('#rateSuperjet').css('display', 'none');
+                $('#approxCostJet').css('display', 'none');
+                $('#approxCostSuperjet').css('display', 'none');
+                $('#approxCostInput').val(distance_data['approx_total_normal'])
+              }
+              else if (distance_data['delivery_type'] = "Long distance") {
+                $('#longDeliveryType').css('display', 'block');
+                $('#approxCostNormal').css('display', 'none');
+                $('#approxCostJet').html(distance_data['approx_total_jet']);
+                $('#approxCostSuperjet').html(distance_data['approx_total_superjet']);
+                $('#rateSuperjet').html(distance_data['rate_superjet']);
+                $('#rateJet').html(distance_data['rate_jet']);
+                $('#approxCostNormal').css('display', 'none');
+                $('#rateNormal').css('display', 'none');
+                $('input:radio[name="delivery_type"]').change(
+                  function(){
+                      if ($(this).val() == 'jet') {
+                          $('#rateJet').css('display', 'block');
+                          $('#rateSuperjet').css('display', 'none');
+                          $('#approxCostJet').css('display', 'block');
+                          $('#approxCostSuperjet').css('display', 'none');
+                          $('#approxCostInput').val(distance_data['approx_total_jet']);
+                      }
+                      else if($(this).val() == 'superjet') {
+                          $('#rateSuperjet').css('display', 'block');
+                          $('#rateJet').css('display', 'none');
+                          $('#approxCostSuperjet').css('display', 'block');
+                          $('#approxCostJet').css('display', 'none');
+                          $('#approxCostInput').val(distance_data['approx_total_superjet'])
+                      }
+                  });
+              }
+              $('#deliveryBookingConfirmation').modal('show');
+            },//end of Success
+            error: function(data) {
+                $.notify({
+                  icon: 'fa fa-star',
+                  message: 'Something went wrong. Please try again!'
+                },{
+                  type: 'danger',
+                  animate: {
+                    enter: 'animated bounceInDown',
+                    exit: 'animated bounceOutUp'
+                  }
+                });
+            }/*  end of error */
+        });
+        return false;
+        });/*end of ajax for merchantBookDeliveryForm*/
+        $('#merchantConfirmBookingForm').on("submit", function(e) { // catch the form's submit event
+        e.preventDefault();
+        $.ajax({ // create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function(data) { // on success..
+              var confirmation_data = jQuery.parseJSON(data);
+              console.log(confirmation_data); 
+              if (confirmation_data['success'] == "True"){
+                setTimeout(function() {location.reload();}, 400);
+              }
+            },//end of Success
+            error: function(data) {
+                $.notify({
+                  icon: 'fa fa-star',
+                  message: 'Something went wrong. Please try again!'
+                },{
+                  type: 'danger',
+                  animate: {
+                    enter: 'animated bounceInDown',
+                    exit: 'animated bounceOutUp'
+                  }
+                });
+            }/*  end of error */
+        });
+        return false;
+        });/*end of ajax for merchantConfirmbooking*/
+        $('#cancelBookingBtn').on("click", function(e){
+          e.preventDefault();
+          
+          var booking_id = $('#bookingIDInput').val();
+          $.ajax({ // create an AJAX call...
+            url: "/booking/cancel_booking/"+booking_id+"/", 
+            success: function(data) { // on success..
+            setTimeout(function() {location.reload();}, 400);
+            },//end of Success
+            error: function(data) {
+                $.notify({
+                  icon: 'fa fa-star',
+                  message: 'Something went wrong. Please try again!'
+                },{
+                  type: 'danger',
+                  animate: {
+                    enter: 'animated bounceInDown',
+                    exit: 'animated bounceOutUp'
+                  }
+                });
+            }/*  end of error */
+        });
+        return false;
+        });/*end of ajax for cancelbokking*/
+
+    });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRcKLBQYizfeHi8fc1GzihE5TK4KTOYEY&libraries=places&region=in&callback=initAutocomplete" async defer></script>
+<script type="text/javascript">
+{% if messages %}
+ $.notify({
+  icon: 'fa fa-star',
+  message: '{% for message in messages %}{{ message }}{% endfor %}'
+},{
+  type: 'success',
+  animate: {
+    enter: 'animated bounceInDown',
+    exit: 'animated bounceOutUp'
+  }
+});
+{% endif %}
+
+
+</script>
+
+{% endblock %}

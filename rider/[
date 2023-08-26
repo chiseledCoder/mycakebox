@@ -1,0 +1,35 @@
+[
+    "booking_details":
+    {
+        "merchant_id": "1",
+        "new_booking_id": "DEWG853",
+        "cost_of_package": "650",
+        "instructions": "",
+        "origin": "Cake Star, Sminu Apartment, Prem Nagar Borivali West, Borivali, Mumbai 400103",
+        "drop_address": "Flat No 301",
+        "destination": "Dadar Railway Station, Pedestrian Overpass, Dadar, Mumbai, Maharashtra",
+        "zipcode": "400014",
+        "pickup_date": "2017-08-21",
+        "pickup_time": "18:15:00",
+        "drop_date": "2017-08-21",
+        "drop_time": "20:00:00",
+        "delivery_type": "Jet",
+        "status": "4",
+        "added_on": "2017-08-21 17:45:47",
+        "m_name": "Shyam Lokhande",
+        "m_mobile": "9579868252",
+        "r_name": "Kishore Valvi"
+    },
+    "available_riders": {        
+        {
+            "r_id": "1",
+            "r_name": "Kishore Valvi",
+            "r_capacity": "2"
+            },
+            {
+            "r_id": null,
+            "r_name": "Vikram Linge",
+            "r_capacity": null
+            }
+        },
+]

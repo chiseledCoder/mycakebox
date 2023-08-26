@@ -1,0 +1,45 @@
+{% extends 'superadmin/base.html' %}
+{% load staticfiles %}
+{% block extracss %}
+{% endblock %}
+
+{% block content %}
+	<section class="content-header">
+        <h1>
+        	Merchant List
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'superadmin_dashboard' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> Merchant</a></li>
+        </ol>
+    </section>
+    <section class="content">
+    	<div class="row">
+    		<div class="col-md-12">
+    			<div class="box box-solid">
+    				<div class="box-header with-border">
+    					<h3 class="box-title">All Merchant List</h3>
+
+    				</div>
+    				<div class="box-body">
+    					<table class="superadmin_merchant_list_datatable" id="superadmin_merchant_list_datatable">
+    						<tr>
+    							<th>
+    								Merchant Name
+    							</th>
+    							<th>
+    								Merchant Phone
+    							</th>
+    							<th>
+    							</th>
+    						</tr>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+{% endblock %}
+
+{% block extrajs %}
+{% endblock %}

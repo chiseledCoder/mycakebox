@@ -1,0 +1,35 @@
+	{% load staticfiles %}
+	<!-- Scripts -->
+	<script type="text/javascript" src="{% static 'js/vendor/jquery-1.11.0.min.js' %}"></script>        
+	<script type="text/javascript" src="{% static 'js/vendor/modernizr.custom.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/classie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/respond.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'js/vendor/jquery.counterup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/waypoints.min.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'js/vendor/instafeed.min.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'js/vendor/smoothscroll.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/jquery.backgroundvideo.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/jquery.backstretch.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/wow.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/detectmobilebrowser.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'js/vendor/owl.carousel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/masonry.pkgd.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/vendor/cbpGridGallery.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="js/vendor/styleswitch.js"></script>  -->       
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRcKLBQYizfeHi8fc1GzihE5TK4KTOYEY"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript">
+       /* ==============================================
+        Backstretch - v1.1
+        =============================================== */
+        $("#bg-slider").backstretch([
+        	"{% static 'images/backgrounds/bg-image-1.jpg' %}",
+        	"{% static 'images/backgrounds/bg-image-2.jpg' %}",
+        	"{% static 'images/backgrounds/bg-image-3.jpg' %}",
+        ], {
+            fade: 1000,
+            duration: 5000
+        });
+    </script>

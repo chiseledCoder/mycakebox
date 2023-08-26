@@ -1,0 +1,380 @@
+{% extends 'superadmin/base.html' %}
+{% load staticfiles %}
+{% block extracss %}
+{% endblock %}
+
+{% block content %}
+	<section class="content-header">
+        <h1>
+        	Merchant Details
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'superadmin_dashboard' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="{% url 'superadmin_merchant_list' %}"><i class="fa fa-users" aria-hidden="true"></i> Merchant List</a></li>
+            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>Merchant - {{ merchant_name }}</a></li>
+        </ol>
+    </section>
+    <section class="content">
+    	<div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-orange">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Pending Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-plus-square" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-maroon">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Assigned Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-purple">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Picked Bookings</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-smile-o" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-olive">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Dropped Booking</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-inr" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+    	<div class="row">
+    		<div class="col-md-4">
+    			<div class="box box-solid">
+    				<div class="box-body box-profile">
+			            <img class="profile-user-img img-responsive img-circle" src="http://via.placeholder.com/128x128" alt="User profile picture">
+                        <h3 class="profile-username text-center">{{ merchant_name }}</h3>
+						<p class="text-muted text-center">{{ merchant_address }}</p>
+						<ul class="list-group list-group-unbordered">
+			                <li class="list-group-item">
+			                  <b>Phone Number</b> 
+			                  	<a class="pull-right">{{ merchant_phone }} / {{ merchant_alt_phone}}</a>
+			                </li>
+			                <li class="list-group-item">
+			                  <b>Email</b> 
+			                  	<a class="pull-right">{{ merchant_email }}</a>
+			                </li>
+			                <li class="list-group-item">
+			                  <b>Date of Joining</b> 
+			                  	<a class="pull-right">{{ merchant_joining_date }}</a>
+			                </li>
+			                <li class="list-group-item">
+			                  <b>Referral Code</b> 
+			                  	<a class="pull-right">{{ merchant_referral_code }}</a>
+			                </li>
+			            </ul>
+  		                <a href="#" class="btn btn-primary btn-block"><b>Update</b></a>
+  		                <a href="#" class="btn btn-danger btn-block"><b>Block Merchant</b></a>
+			        </div>
+    			</div>
+    		</div><!-- ./col-md-4 -->
+    		<div class="col-md-8">
+          	<div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#allBookings" data-toggle="tab">All</a></li>
+              <li><a href="#pendingBookings" data-toggle="tab">Pending</a></li>
+              <li><a href="#assignedBookings" data-toggle="tab">Assigned</a></li>
+              <li><a href="#pickedBookings" data-toggle="tab">Picked</a></li>
+              <li><a href="#droppedBookings" data-toggle="tab">Dropped</a></li>
+            </ul>
+            <div class="tab-content">
+            	<div class="active tab-pane" id="allBookings">
+            		<table class="table table-bordered table-hover dataTable" id="allBookingsTable">
+            			<thead>
+            				<tr>
+            					<th>ID</th>
+            					<th>
+            						Booking Date
+            					</th>
+            					<th>
+            						Pickup Date
+            					</th>
+            					<th>
+            						Drop Date
+            					</th>
+            					<th>
+            						Customer
+            					</th>
+            					<th>
+            						Rider
+            					</th>
+            				</tr>
+            			</thead>
+            		</table>
+            	</div>
+            	<div class="tab-pane" id="pendingBookings">
+            		<table class="table table-bordered table-hover dataTable" id="pendingBookingsTable">
+            			<thead>
+            				<tr>
+            					<th>ID</th>
+                                <th>
+                                    Booking Date
+                                </th>
+                                <th>
+                                    Pickup Date
+                                </th>
+                                <th>
+                                    Drop Date
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Rider
+                                </th>
+            				</tr>
+            			</thead>
+            		</table>
+            	</div>
+            	<div class="tab-pane" id="assignedBookings">
+            		<table class="table table-bordered table-hover dataTable" id="assignedBookingsTable">
+            			<thead>
+            				<tr>
+            					<th>ID</th>
+                                <th>
+                                    Booking Date
+                                </th>
+                                <th>
+                                    Pickup Date
+                                </th>
+                                <th>
+                                    Drop Date
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Rider
+                                </th>
+            				</tr>
+            			</thead>
+            		</table>
+            	</div>
+            	<div class="tab-pane" id="pickedBookings">
+            		<table class="table table-bordered table-hover dataTable" id="pickedBookingsTable">
+            			<thead>
+            				<tr>
+            					<th>ID</th>
+                                <th>
+                                    Booking Date
+                                </th>
+                                <th>
+                                    Pickup Date
+                                </th>
+                                <th>
+                                    Drop Date
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Rider
+                                </th>
+            				</tr>
+            			</thead>
+            		</table>
+            	</div>
+            	<div class="tab-pane" id="droppedBookings">
+            		<table class="table table-bordered table-hover dataTable" id="droppedBookingsTable">
+            			<thead>
+            				<tr>
+            					<th>ID</th>
+                                <th>
+                                    Booking Date
+                                </th>
+                                <th>
+                                    Pickup Date
+                                </th>
+                                <th>
+                                    Drop Date
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Rider
+                                </th>
+            				</tr>
+            			</thead>
+            		</table>
+            	</div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+    	</div><!-- ./row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">
+                            Customers
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered table-hover dataTable" id="customerTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Address
+                                    </th>
+                                    <th>
+                                        Locality
+                                    </th>
+                                    <th>
+                                        Phone
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div><!-- ./box -->
+            </div><!-- ./col-12 -->
+        </div><!-- ./row -->
+    </section>
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#allBookingsTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_selected_status_booking_history.php?merchant_id=1&order_status=All&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "new_booking_id",
+                        "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
+                            var a = '<a href="/superadmin/booking/booking_details/'+ row.new_booking_id +'">' + row.new_booking_id +'</a>'; // row object contains the row data
+                            return a;
+                        }
+            },
+            { "data": "added_on" },
+            { "data": "pickup_date" },
+            { "data": "drop_date" },
+            { "data": "c_name" },
+            { "data": "r_name" },
+        ]
+    } );/*./allBookingsDatatable*/
+    $('#pendingBookingsTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_selected_status_booking_history.php?merchant_id=1&order_status=Pending&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "new_booking_id",
+                        "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
+                            var a = '<a href="/superadmin/booking/booking_details/'+ row.new_booking_id +'">' + row.new_booking_id +'</a>'; // row object contains the row data
+                            return a;
+                        }
+            },
+            { "data": "added_on" },
+            { "data": "pickup_date" },
+            { "data": "drop_date" },
+            { "data": "c_name" },
+            { "data": "r_name" },
+        ]
+    } );/*./pendingBookingsDatatable*/
+    $('#assignedBookingsTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_selected_status_booking_history.php?merchant_id=1&order_status=Assigned&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "new_booking_id",
+                        "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
+                            var a = '<a href="/superadmin/booking/booking_details/'+ row.new_booking_id +'">' + row.new_booking_id +'</a>'; // row object contains the row data
+                            return a;
+                        }
+            },
+            { "data": "added_on" },
+            { "data": "pickup_date" },
+            { "data": "drop_date" },
+            { "data": "c_name" },
+            { "data": "r_name" },
+        ]
+    } );/*./assignedBookingsDatatable*/
+    $('#pickedBookingsTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_selected_status_booking_history.php?merchant_id=1&order_status=Picked&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "new_booking_id",
+                        "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
+                            var a = '<a href="/superadmin/booking/booking_details/'+ row.new_booking_id +'">' + row.new_booking_id +'</a>'; // row object contains the row data
+                            return a;
+                        }
+            },
+            { "data": "added_on" },
+            { "data": "pickup_date" },
+            { "data": "drop_date" },
+            { "data": "c_name" },
+            { "data": "r_name" },
+        ]
+    } );/*./pickedBookingsDatatable*/
+    $('#droppedBookingsTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_selected_status_booking_history.php?merchant_id=1&order_status=Dropped&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "new_booking_id",
+                        "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
+                            var a = '<a href="/superadmin/booking/booking_details/'+ row.new_booking_id +'">' + row.new_booking_id +'</a>'; // row object contains the row data
+                            return a;
+                        }
+            },
+            { "data": "added_on" },
+            { "data": "pickup_date" },
+            { "data": "drop_date" },
+            { "data": "c_name" },
+            { "data": "r_name" },
+        ]
+    } );/*./droppedBookingsDatatable*/
+
+    $('#customerTable').DataTable( {
+        "ajax": {
+            "url": "http://kulsofttech.info/mycakebox/API/api_merchants_customer.php?merchantid=1&key=QAZ5I3O6Zh58j9Up",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "c_name"},
+            { "data": "c_address"},
+            { "data": "c_locality" },
+            { "data": "c_phone_no" },
+        ]
+    } );/*./droppedBookingsDatatable*/
+} );
+</script>
+{% endblock %}

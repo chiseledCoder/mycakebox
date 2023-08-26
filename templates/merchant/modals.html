@@ -1,0 +1,148 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="deliveryBookingConfirmation">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirm Booking Details &amp; Select Delivery</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <h4 class="text-cakemporos">Cake Details:</h4>
+                                <ul class="list-group list-group-unbordered">
+                                  <li class="list-group-item">
+                                    <b>Cost of Cake: </b> <span id="costOfCake"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Weight of Cake: </b> <span id="weightOfCake"></span>
+                                  </li>
+                                </ul>
+                                <h4 class="text-cakemporos">Customer Details:</h4>
+                                <ul class="list-group list-group-unbordered">
+                                  <li class="list-group-item">
+                                    <b>Customer: </b> <span id="customerName"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                     <b>Customer Phone: </b><span id="customerPhone"></span>
+                                  </li>
+                                </ul>
+                                <h4 class="text-cakemporos">Rider Details: </h4>
+                                <ul class="list-group list-group-unbordered">
+                                  <li class="list-group-item">
+                                    <b>Rider: </b> <span id="riderName"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Rider Phone: </b> <span id="riderPhone"></span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <h4 class="text-cakemporos">Pick-up &amp; Drop Details:</h4>
+                                <ul class="list-group list-group-unbordered">
+                                  <li class="list-group-item">
+                                    <b>From: </b> <span id="originAddress"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>To: </b> <span id="destinationAddress"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Pick-up Date &amp; Time: </b><span id="pickupDateTime"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Drop Date &amp; Time: </b><span id="dropDateTime"></span>
+                                  </li>
+                                </ul>
+                                <h4 class="text-cakemporos">Delivery Details: </h4>
+                                <ul class="list-group list-group-unbordered">
+                                  <li class="list-group-item">
+                                    <b>Distance: </b> <span id="finalDistance"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Duration: </b> <span id="finalDuration"></span>
+                                  </li>
+                                  <li class="list-group-item">
+                                     <b>Instruction: </b> <span id="anyInstructions"></span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-md-12">
+                                <h4 class="text-cakemporos">Delivery Type &amp; Totals: </h4>
+                                <div class="row"> 
+                                  <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <ul class="list-group list-group-unbordered">
+                                      <li class="list-group-item">
+                                        <b>Delivery Type: </b> <span id="deliveryType"></span>
+                                        <form id="merchantConfirmBookingForm" role="form" action="{% url 'confirm_booking_details' %}  " method="POST">{% csrf_token %}
+                                            <input type="hidden" id="bookingIDInput" name="booking_id" class="form-control" required="required"></input>
+                                            <input type="hidden" value="" id="approxCostInput" name="approx_total"></input>
+                                          <div id="normalDeliveryType" style="display: none">
+                                            <label class="radio-inline">
+                                            <input type="radio" value="normal" name="delivery_type" id="deliveryTypeInput1" checked="checked" required="required">Normal
+                                          </label>  
+                                          </div>
+                                          <div id="longDeliveryType" style="display: none">
+                                            <label class="radio-inline">
+                                            <input type="radio" value="jet" name="delivery_type" id="deliveryTypeInput2"  required="required">Jet
+                                            </label>
+                                            <label class="radio-inline">
+                                              <input type="radio" value="superjet" name="delivery_type" id="deliveryTypeInput3" required="required">SuperJet
+                                            </label>
+                                          </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <ul class="list-group list-group-unbordered">
+                                      <li class="list-group-item">
+                                        <b>Rate: </b><span id="rateNormal" style="display: none;"></span><span id="rateJet" style="display: none;"></span><span id="rateSuperjet" style="display: none;"></span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <ul class="list-group list-group-unbordered">
+                                      <li class="list-group-item">
+                                        <b>Approx Cost: </b><span id="approxCostNormal" style="display: none;"></span><span id="approxCostJet" style="display: none;"></span><span id="approxCostSuperjet" style="display: none;"></span>
+                                      </li> 
+                                    </ul>
+                                  </div>
+                                </div>                                  
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelBookingBtn">Cancel Booking</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Reset Booking</button>
+                            <input type="submit" class="btn btn-success" id="confirmBookingBtn" value="Confirm Booking"></input>
+                            </form><!-- End of merchantConfirmBooking -->
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+<div class="modal fade" id="selectCustomerModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Close</span></button>
+        <h4 class="modal-title text-center" id="selectCustomerModalLabel">Select Existing Customer</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-unbordered">
+          {% for item in merchant.customer.all %}
+            <li class="list-group-item">
+                <div class="checkbox">
+                    <input type="radio" id="selectCustomerRadio" aria-label="Checkbox for following text input" value="{{ item.customer_id }}" name="selectCustomerRadio">
+                    <label class="label-control">{{ item }}</label>
+                </div>
+              <p><b>Address:</b>&nbsp;{{ item.address }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" id="selectCustomerBtn">Select Customer</a>
+      </div>
+    </div>
+  </div>
+</div>
